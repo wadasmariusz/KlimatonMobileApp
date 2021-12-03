@@ -12,7 +12,7 @@ export default {
   textWhite: "#ffffff",
   textBlack: "#000000",
 
-  primary: "#b33b43",
+  primary: "#252f45",
   secondary: "#154765",
   background: "#f2f2f2",
   drawerTintColor: "#bdbfc7",
