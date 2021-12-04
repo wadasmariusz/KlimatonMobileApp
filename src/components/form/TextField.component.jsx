@@ -2,10 +2,12 @@ import React, {useRef, useState} from 'react'
 import {Pressable, StyleSheet, Text, TextInput, View,} from 'react-native'
 import myStyles from '../../constants/myStyles'
 import colors from '../../constants/colors'
+import { useSelector } from 'react-redux'
 
-const TextField = ({ title, value, setValue, style, inputProps, IconFamily, icon, containerStyles, light}) => {
+const TextField = ({ title, value, setValue, style, inputProps, IconFamily, icon, containerStyles}) => {
   const [isFocused, setIsFocused] = useState(false);
   const ref = useRef(null);
+  const light = useSelector(state => state.theme.theme);
 
   return (
     <Pressable onPress={() => {
@@ -13,7 +15,15 @@ const TextField = ({ title, value, setValue, style, inputProps, IconFamily, icon
     }}>
       <View style={styles.container}>
         {title && <Text style={[styles.label, light ? styles.labelLight : styles.labelDark]}>{title}</Text>}
-        <View style={[styles.inputWrapper, isFocused ? styles.inputFocus : '', containerStyles]}>
+        <View style={[
+            styles.inputWrapper,
+            isFocused ? styles.inputFocus : '',
+            containerStyles,
+            {
+              borderColor: light ? colors.darkGray : colors.lightGray,
+              backgroundColor: light ? colors.darkGray : colors.lightGray,
+            }
+          ]}>
           {!!icon && <IconFamily name={icon} style={[
             styles.inputIcon,
             light ? styles.iconLight : styles.iconDark,
@@ -57,8 +67,6 @@ const styles = StyleSheet.create({
   },
   inputWrapper: {
     borderWidth: 1,
-    borderColor: colors.darkGray,
-    backgroundColor: colors.darkGray,
     borderRadius: 5,
     paddingVertical: 12,
     paddingHorizontal: 10,

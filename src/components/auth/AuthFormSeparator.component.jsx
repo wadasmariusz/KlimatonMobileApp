@@ -1,9 +1,12 @@
 import { LinearGradient } from 'expo-linear-gradient'
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { useSelector } from 'react-redux'
 import colors from '../../constants/colors'
 
 export const AuthFormSeparator = ({children}) => {
+  const darkMode = useSelector(state => state.theme.theme);
+
   return (
     <View style={styles.separator}>
       <View style={styles.separatorLine}>
@@ -14,7 +17,7 @@ export const AuthFormSeparator = ({children}) => {
         style={styles.separatorLineBackground}
       />
       </View>
-      <Text style={styles.separatorText}>{children}</Text>
+      <Text style={{color: darkMode ? colors.textWhite : colors.textBlack}}>{children}</Text>
       <View style={styles.separatorLine}>
         <LinearGradient
           start={{x: 0, y: 0}}
@@ -31,9 +34,7 @@ const styles = StyleSheet.create({
   separator: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  separatorText: {
-    color: colors.textWhite,
+    paddingVertical: 15,
   },
   separatorLine: {
     flex: 1,height: 3,

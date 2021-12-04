@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/core'
 import Header from '../../components/Header'
 import { useSelector } from 'react-redux'
 
-const LoginScreen = props => {
+const RegisterScreen = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -23,7 +23,7 @@ const LoginScreen = props => {
   const navigation = useNavigation();
   const darkMode = useSelector(state => state.theme.theme);
 
-  const logIn = async () => {
+  const register = async () => {
     try {
       setIsLoading(true)
       setError(null)
@@ -38,7 +38,7 @@ const LoginScreen = props => {
   return (
     <View style={[styles.background, {backgroundColor: darkMode ? colors.primary : colors.background}]}>
       <SafeAreaView style={styles.flex}>
-      <Header light/>
+      <Header back light/>
       <KeyboardAvoidingView behavior='height' style={styles.flex}>
           <ScrollView contentContainerStyle={{flexGrow: 1}}>
             {Platform.OS === 'ios' && <StatusBar barStyle='dark-content' />}
@@ -51,6 +51,38 @@ const LoginScreen = props => {
                   />
               </View> */}
               <View style={styles.inputsView}>
+                <View style={styles.input}>
+                  <TextField
+                    title='Imię'
+                    value={email}
+                    setValue={setEmail}
+                    inputProps={{
+                      placeholder: 'Podaj imię',
+                      autoCompleteType: 'off',
+                      autoCorrect: false,
+                      keyboardType: 'email-address',
+                    }}
+                    IconFamily={MaterialIcons}
+                    icon="mail-outline"
+                    light
+                  />
+                </View>
+                <View style={styles.input}>
+                  <TextField
+                    title='Nazwisko'
+                    value={email}
+                    setValue={setEmail}
+                    inputProps={{
+                      placeholder: 'Podaj nazwisko',
+                      autoCompleteType: 'off',
+                      autoCorrect: false,
+                      keyboardType: 'email-address',
+                    }}
+                    IconFamily={MaterialIcons}
+                    icon="mail-outline"
+                    light
+                  />
+                </View>
                 <View style={styles.input}>
                   <TextField
                     title='Email'
@@ -83,29 +115,42 @@ const LoginScreen = props => {
                     light
                   />
                 </View>
-                <TouchableOpacity>
-                  <Text style={styles.forgotPasswordText}>Zapomniałeś hasła?</Text>
-                </TouchableOpacity>
+                <View style={styles.input}>
+                  <TextField
+                    title='Powtórz hasło'
+                    value={password}
+                    setValue={setPassword}
+                    inputProps={{
+                      placeholder: 'Podaj hasło ponownie',
+                      secureTextEntry: true,
+                      autoCompleteType: 'off',
+                      autoCorrect: false,
+                    }}
+                    IconFamily={Feather}
+                    icon="lock"
+                    light
+                  />
+                </View>
                 {!!(error || message) && <Text style={error ? styles.errorText : styles.successMessage}>{error || message}</Text>}
                 <View style={styles.buttonView}>
                   <Button
-                    text='Zaloguj'
+                    text='Zarejestruj'
                     isLoading={isLoading}
-                    onPress={logIn}
+                    onPress={register}
                     style={styles.submitBtn}
                   />
                 </View>
               </View>
-              <AuthFormSeparator>lub zaloguj przez</AuthFormSeparator>
+              <AuthFormSeparator>lub zarejestruj przez</AuthFormSeparator>
               <View style={styles.socialButtons}>
                 <SocialButton image={require('../../../assets/social-icons/google.png')}/>
                 <SocialButton image={require('../../../assets/social-icons/apple.png')}/>
                 <SocialButton image={require('../../../assets/social-icons/facebook.png')}/>
               </View>
-              <View style={styles.registerLink}>
-                <Text style={{color: darkMode ? colors.lightGray : colors.textBlack}}>Nie masz konta? </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                  <Text style={styles.link}>Zarejestruj się</Text>
+              <View style={[styles.loginLink]}>
+                <Text style={{color: darkMode ? colors.lightGray : colors.textBlack}}>Masz już konto? </Text>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <Text style={styles.link}>Zaloguj się</Text>
                 </TouchableOpacity>
               </View>
               
@@ -121,6 +166,7 @@ const LoginScreen = props => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
+    backgroundColor: colors.primary,
   },
   errorText: {
     ...myStyles.errorText,
@@ -171,14 +217,14 @@ const styles = StyleSheet.create({
   link: {
     color: colors.secondary,
   },
-  textLight: {
-    color: colors.lightGray,
+  textCenter: {
+    justifyContent: 'center',
   },
-  registerLink: {
+  loginLink: {
     flexDirection: 'row',
     justifyContent: 'center',
     paddingVertical: 15,
   }
 })
 
-export default LoginScreen
+export default RegisterScreen

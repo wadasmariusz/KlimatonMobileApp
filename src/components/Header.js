@@ -11,9 +11,11 @@ import { Entypo } from '@expo/vector-icons';
 
 import myStyles from '../constants/myStyles'
 import colors from '../constants/colors'
+import { useSelector } from 'react-redux';
 
-const Header = ({ title, isLoading, back, light, style, buttonStyle }) => {
+const Header = ({ title, isLoading, back, style, buttonStyle }) => {
   const navigation = useNavigation()
+  const light = useSelector(state => state.theme.theme);
 
   return (
     <View style={{...styles.container, ...{

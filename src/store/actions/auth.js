@@ -61,3 +61,31 @@ export const logout = () => {
     dispatch({ type: LOGOUT });
   };
 };
+
+export const register = (login, password, confirmPassword) => {
+  return async (dispatch, getState) => {
+    const response = await fetchFromAPI({
+      method: 'POST',
+      url: getAPIAdress('account/register'),
+      data: {
+        login: login,
+        password: password,
+        confirmPassword: confirmPassword,
+        PNSToken: getState().auth.PNSToken,
+      }
+    })
+    if (response != null && response.token != null) {
+      dispatch(authenticate({
+        type: AUTHENTICATE,
+        token: response?.token,
+        userId: response?.userId,
+        roles: response?.roles,
+      }))
+    }
+    else {
+      if (response != null && response.errorMsg != null) {
+        throw new Error(JSON.stringify(response))
+      } else throw new Error("Error")
+    }
+  }
+}
