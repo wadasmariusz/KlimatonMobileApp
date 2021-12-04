@@ -3,7 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { MapNavigator} from '@navigators/Navigators'
 import { useSelector } from 'react-redux'
 import { Entypo } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, Octicons } from '@expo/vector-icons';
 
 import DrawerTemplate from './DrawerTemplate'
 import { getMenuIcon } from '../helpers/menu/getMenuIcon'
@@ -13,6 +13,7 @@ import colors from '../constants/colors'
 import AuthNavigator from './stack-navigators/AuthStackNavigator'
 import { MyReports } from '../screens/reports/MyReports.screen'
 import { ReportList } from '../screens/reports/ReportList.screen'
+import { MyAccount } from '../screens/account/MyAccount.screen';
 
 const DrawerNavigatorTemplate = createDrawerNavigator()
 const DrawerNavigator = () => {
@@ -30,7 +31,7 @@ const DrawerNavigator = () => {
       drawerContent={props => <DrawerTemplate {...props}/>}
     >
       <DrawerNavigatorTemplate.Screen
-        name='Map'
+        name='Map.category'
         component={MapNavigator}
         options={{
           drawerLabel: getMenuLabel('Mapa'),
@@ -45,16 +46,24 @@ const DrawerNavigator = () => {
           drawerIcon: getMenuIcon(MaterialIcons, "report-problem"),
         }}
       />
-      {!!token ? (
+      {!!token ? <>
         <DrawerNavigatorTemplate.Screen
           name='MyReports'
           component={MyReports}
           options={{
             drawerLabel: getMenuLabel('Moje zgłoszenia'),
+            drawerIcon: getMenuIcon(Octicons, "report"),
+          }}
+        />
+        <DrawerNavigatorTemplate.Screen
+          name='MyAccount'
+          component={MyAccount}
+          options={{
+            drawerLabel: getMenuLabel('Moje konto'),
             drawerIcon: getMenuIcon(MaterialIcons, "account-circle"),
           }}
         />
-      ) : (
+      </> : (
         <DrawerNavigatorTemplate.Screen
           name='Auth'
           component={AuthNavigator}

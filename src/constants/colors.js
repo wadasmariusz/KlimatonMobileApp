@@ -17,3 +17,12 @@ export default {
   background: "#f2f2f2",
   drawerTintColor: "#bdbfc7",
 };
+
+export const ReportTypeColors = {
+  0: '#AE431E',
+  2: '#396EB0',
+  4: '#77E4D4',
+  6: '#A2D2FF',
+  8: '#AAA492',
+  10: '#FFCA03',
+}

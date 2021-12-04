@@ -3,20 +3,25 @@ import {
     View,
     StyleSheet,
     Text,
+    FlatList,
 } from 'react-native'
 import MapView, { Marker, Callout } from 'react-native-maps'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import BottomSheet from 'reanimated-bottom-sheet';
-
-import Header from '../components/Header'
-import MarkerCallout from '../components/MarkerCallout'
-import myStyles from '../constants/myStyles'
-import helpers from '../helpers/helpers'
-import pinImage from '../../assets/pin.png'
 import { useWindowDimensions } from 'react-native';
-import colors from '../constants/colors'; 
-import { darkStyle } from '../data/mapStyles';
 import { useSelector } from 'react-redux';
+
+import Header from '../../components/Header'; 
+import MarkerCallout from '../../components/MarkerCallout';
+import myStyles from '../../constants/myStyles'; 
+import helpers from '../../helpers/helpers';
+import pinImage from '../../../assets/pin.png';
+import colors from '../../constants/colors'; 
+import { darkStyle } from '../../data/mapStyles';
+import { AddReportButton } from '../../components/map/AddReportButton.component';
+import { useNavigation } from '@react-navigation/core';
+import reports from '../../data/Reports.json';
+import ReportListItem from './reports-list-item/ReportsListItem.component';
 
 const MapScreen = props => {
   const mapRef = useRef(null)
@@ -25,6 +30,10 @@ const MapScreen = props => {
   const sheetRef = React.useRef(null);
   const { height, width } = useWindowDimensions();
   const darkMode = useSelector(state => state.theme.theme);
+  const token = useSelector(state => state.auth.token);
+  const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
+  console.log(reports);
 
   const renderContent = () => (
     <View
@@ -34,7 +43,20 @@ const MapScreen = props => {
       }]}
     >
       <View style={styles.handle}></View>
-      <Text>Swipe down to close</Text>
+      <FlatList
+        data={reports}
+        renderItem={({ item }) => <ReportListItem item={item} />}
+        // ItemSeparatorComponent={() => (
+        //   <View style={{ height: myStyles.listItemMargin }} />
+        // )}
+        ListEmptyComponent={() =>
+          !isLoading && <Text style={myStyles.emptyListMessage}>Brak zagrożeń</Text>
+        }
+        contentContainerStyle={myStyles.listContent}
+        keyExtractor={(i) => i?.id?.toString()}
+        // refreshing={isLoading}
+        // onRefresh={refetch}
+      />
     </View>
   );
 
@@ -69,7 +91,10 @@ const MapScreen = props => {
       </MapView>
       <View style={styles.header}>
         <SafeAreaView>
-          <Header buttonStyle={[styles.menuBtn, {backgroundColor: darkMode ? colors.primary : colors.background}]}/>
+          <View style={styles.row}>
+            <Header buttonStyle={[styles.menuBtn, {backgroundColor: darkMode ? colors.primary : colors.background}]}/>
+            <AddReportButton onPress={() => navigation.navigate(token ? 'AddReport' : 'Login')}/>
+          </View>
         </SafeAreaView>
       </View>
       <BottomSheet
@@ -88,7 +113,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    //backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
   map: {
     flex: 1,
@@ -112,7 +137,7 @@ const styles = StyleSheet.create({
     elevation: 15,
   },
   bottomView: {
-    padding: 16,
+    paddingVertical: myStyles.marginHorizontal,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -129,6 +154,10 @@ const styles = StyleSheet.create({
     height: 4,
     borderRadius: 2,
     alignSelf: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   }
 })
 
