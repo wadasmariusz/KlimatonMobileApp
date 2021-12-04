@@ -7,9 +7,9 @@ import {
     TouchableOpacity,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { AntDesign } from 'react-native-vector-icons'
+import { Entypo } from '@expo/vector-icons';
 
-import myStyles from '../styles/myStyles'
+import myStyles from '../constants/myStyles'
 import colors from '../constants/colors'
 
 const Header = ({ title, isLoading, back, light, style, buttonStyle }) => {
@@ -26,7 +26,7 @@ const Header = ({ title, isLoading, back, light, style, buttonStyle }) => {
             back ? navigation.goBack() : navigation.toggleDrawer()
           }}
         >
-          <AntDesign name={back ? 'arrowleft' : 'bars'} size={26} color={light ? colors.lightGray : colors.textBlack} />
+          <Entypo name={back ? 'chevron-left' : 'menu'} size={26} color={light ? colors.lightGray : colors.textBlack} />
         </TouchableOpacity>
       </View>
       <View style={styles.content}>

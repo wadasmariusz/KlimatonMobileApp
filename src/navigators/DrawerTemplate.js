@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 // import { Ionicons } from '@expo/vector-icons'
 
-import myStyles from '@styles/myStyles'
+import myStyles from '../constants/myStyles'
 // import { configuration } from '../app.config'
 
 const DrawerTemplate = props => {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     drawerList: {
         flex: 16,
         //marginHorizontal: 10,
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
 
         borderRadius: myStyles.borderRadiusSmall,
     },

@@ -11,6 +11,7 @@ import { getMenuLabel } from '../helpers/menu/getMenuLabel'
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import myStyles from '../constants/myStyles'
+import colors from '../constants/colors'
 
 const DrawerNavigatorTemplate = createDrawerNavigator()
 const DrawerNavigator = () => {
@@ -20,6 +21,9 @@ const DrawerNavigator = () => {
     <DrawerNavigatorTemplate.Navigator
       screenOptions={{
         ...myStyles.defaultNavOptions,
+        drawerStyle: {
+          backgroundColor: colors.primary,
+        },
       }}
       drawerContent={props => <DrawerTemplate {...props}/>}
     >
@@ -27,7 +31,7 @@ const DrawerNavigator = () => {
         name='Map'
         component={MapNavigator}
         options={{
-          drawerLabel: () => <DrawerLabel>Mapa</DrawerLabel>,
+          drawerLabel: getMenuLabel('Mapa'),
           drawerIcon: getMenuIcon(Entypo, "map"),
         }}
       />

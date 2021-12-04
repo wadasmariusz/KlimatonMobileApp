@@ -56,10 +56,11 @@ const styles = StyleSheet.create({
     flexShrink: 0,
   },
   inputWrapper: {
-    borderColor: colors.gray,
     borderWidth: 1,
+    borderColor: colors.darkGray,
+    backgroundColor: colors.darkGray,
     borderRadius: 5,
-    paddingVertical: 6,
+    paddingVertical: 12,
     paddingHorizontal: 10,
     flexDirection: 'row',
     alignItems: 'center',
@@ -67,7 +68,6 @@ const styles = StyleSheet.create({
   inputIcon: {
     marginRight: 10,
     fontSize: 24,
-    
   },
   iconLight: {
     color: colors.lightGray,
@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
   label: {
     ...myStyles.label,
     fontSize: 16,
-    
     marginBottom: 5,
   },
   labelLight: {
@@ -88,11 +87,11 @@ const styles = StyleSheet.create({
     color: colors.textBlack,
   },
   inputFocus: {
-    borderColor: colors.primary,
+    borderColor: colors.secondary,
     backgroundColor: colors.inputWhite,
   },
   iconFocus: {
-    color: colors.primary,
+    color: colors.secondary,
   },
   container: {
     borderRadius: myStyles.borderRadiusSmall,

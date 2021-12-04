@@ -1,9 +1,9 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import MapScreen from '@screens/MapScreen'
+import MapScreen from '../screens/MapScreen'
 
-import myStyles from '@styles/myStyles'
+import myStyles from '../constants/myStyles'
 
 const MapStackNavigator = createStackNavigator()
 export const MapNavigator = () => {

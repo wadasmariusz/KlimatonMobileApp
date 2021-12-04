@@ -18,8 +18,8 @@ export default {
   defaultNavOptions: {
     headerShown: false,
     drawerInactiveTintColor: colors.drawerTintColor,
-    drawerActiveTintColor: colors.primary,
-    drawerActiveBackgroundColor: 'rgba(255, 74, 46, 0.18)'
+    drawerActiveTintColor: colors.drawerTintColor,
+    drawerActiveBackgroundColor: 'rgba(67, 80, 107, 0.6)'
   },
 
   shadow: {
@@ -94,7 +94,7 @@ export default {
       ...this.shadow,
       height: 50,
       borderRadius: this.borderRadiusSmall,
-      backgroundColor: colors.primary,
+      backgroundColor: colors.secondary,
       justifyContent: "center",
       alignItems: "center",
       elevation: 3,

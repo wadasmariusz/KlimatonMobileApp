@@ -12,12 +12,12 @@ export default {
     'version': configuration.APP_VERSION,
     'orientation': 'portrait',
     'icon': './assets/icon.png',
-    'backgroundColor': '#154765',
-    'primaryColor': '#154765',
+    'backgroundColor': '#30394d',
+    'primaryColor': '#30394d',
     'splash': {
       'image': './assets/splash.png',
       'resizeMode': 'cover',
-      'backgroundColor': '#154765',
+      'backgroundColor': '#30394d',
     },
     'updates': {
       'enabled': false,
@@ -37,7 +37,7 @@ export default {
       'userInterfaceStyle': 'light',
       'permissions': [],
       'adaptiveIcon': {
-        'backgroundColor': '#154765'
+        'backgroundColor': '#30394d'
       },
     },
     'web': {

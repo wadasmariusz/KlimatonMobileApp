@@ -13,7 +13,7 @@ module.exports = function(api) {
             "@helpers": "./src/helpers",
             "@navigators": "./src/navigators",
             "@screens": "./src/screens",
-            "@styles": "./src/styles",
+            "@styles": "./src/constants",
             "@store": './src/store',
           }
         },

@@ -8,13 +8,14 @@ import MapView, { Marker, Callout } from 'react-native-maps'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import BottomSheet from 'reanimated-bottom-sheet';
 
-import Header from '@components/Header'
-import MarkerCallout from '@components/MarkerCallout'
-import myStyles from '@styles/myStyles'
-import helpers from '@helpers/helpers'
+import Header from '../components/Header'
+import MarkerCallout from '../components/MarkerCallout'
+import myStyles from '../constants/myStyles'
+import helpers from '../helpers/helpers'
 import pinImage from '../../assets/pin.png'
 import { useWindowDimensions } from 'react-native';
 import colors from '../constants/colors'; 
+import { darkStyle } from '../data/mapStyles';
 
 const MapScreen = props => {
   const mapRef = useRef(null)
@@ -29,6 +30,7 @@ const MapScreen = props => {
         height: height*0.75,
       }]}
     >
+      <View style={styles.handle}></View>
       <Text>Swipe down to close</Text>
     </View>
   );
@@ -45,6 +47,7 @@ const MapScreen = props => {
           longitudeDelta: 0.08,
         }}
         rotateEnabled={false}
+        customMapStyle={darkStyle}
     >
         {markers.map((marker, index) => (
           <Marker
@@ -100,6 +103,13 @@ const styles = StyleSheet.create({
   bottomView: {
     backgroundColor: colors.primary,
     padding: 16,
+  },
+  handle: {
+    backgroundColor: colors.gray,
+    width: 50,
+    height: 4,
+    borderRadius: 2,
+    alignSelf: 'center',
   }
 })
 
