@@ -11,9 +11,11 @@ export const fetchFromAPI = async config => {
   return axios
     .request(config)
     .then(response => {
+      console.log(response.data);
       return response.data ? response.data : response.status
     })
     .catch(error => {
+      console.log('err', error.response);
       if (error.response) {
         // client received an error response (5xx, 4xx)
         const status = error.response.status

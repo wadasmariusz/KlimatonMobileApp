@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import React, {useState} from 'react'
-import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {MaterialIcons, Feather} from '@expo/vector-icons'
 
@@ -12,7 +12,9 @@ import { SocialButton } from '../../components/general/SocialButton.component'
 import { AuthFormSeparator } from '../../components/auth/AuthFormSeparator.component'
 import { useNavigation } from '@react-navigation/core'
 import Header from '../../components/Header'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import * as authActions from '../../store/actions/auth';
+import ActivityIndicator from '../../components/general/ActivityIndicator.component'
 
 const LoginScreen = props => {
   const [email, setEmail] = useState('');
@@ -22,6 +24,7 @@ const LoginScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
   const darkMode = useSelector(state => state.theme.theme);
+  const dispatch = useDispatch();
 
   const logIn = async () => {
     try {
@@ -43,13 +46,13 @@ const LoginScreen = props => {
           <ScrollView contentContainerStyle={{flexGrow: 1}}>
             {Platform.OS === 'ios' && <StatusBar barStyle='dark-content' />}
             <View style={styles.content}>
-              {/* <View
+              <View
                 style={styles.iconView}>
                   <Image
                     style={styles.logo}
                     source={require('../../../assets/logo.png')}
                   />
-              </View> */}
+              </View>
               <View style={styles.inputsView}>
                 <View style={styles.input}>
                   <TextField

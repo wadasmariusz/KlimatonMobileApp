@@ -5,35 +5,53 @@ import {
 } from '@react-navigation/drawer'
 import {
     View,
-    Text,
-    Image,
     TouchableOpacity,
     StyleSheet,
+    Image,
 } from 'react-native'
 import Toggle from 'react-native-toggle-element';
-import { Feather } from '@expo/vector-icons';
+import { Feather, Ionicons } from '@expo/vector-icons';
 
 import myStyles from '../constants/myStyles';
 import colors from '../constants/colors';
 import * as themeActions from '../store/actions/theme';
 import { useDispatch, useSelector } from 'react-redux';
-// import { configuration } from '../app.config'
+import { getMenuLabel } from '../helpers/menu/getMenuLabel';
+import * as authActions from '../store/actions/auth';
 
 const DrawerTemplate = props => {
-    // const [toggleValue, setToggleValue] = useState(false);
     const darkMode = useSelector(state => state.theme.theme);
+    const token = useSelector(state => state.auth.token);
     const dispatch = useDispatch();
+
+    const logout = async () => {
+        await dispatch(authActions.logout())
+    }
 
     return (
         <DrawerContentScrollView {...props} contentContainerStyle={styles.container}>
-            {/* <View style={styles.logoView}>
+            <View style={styles.logoView}>
                 <Image
                     style={myStyles.logoIconText}
-                    source={require('../../assets/menu-logo.png')}
+                    source={require('../../assets/logo.png')}
                 />
-            </View> */}
+            </View>
             <View style={styles.drawerList}>
                 <DrawerItemList {...props} />
+                {!!token && (
+                    <TouchableOpacity
+                        onPress={logout}
+                        style={styles.logoutItem}
+                        >
+                        <Ionicons name='md-power' size={18} color={colors.drawerTintColor} />
+                        <View style={styles.logoutTextView}>
+                            {getMenuLabel('Wyloguj')({
+                            color: colors.drawerTintColor
+                            })}
+                        </View>
+                    </TouchableOpacity>
+                )}
+                
             </View>
             <View style={styles.versionView}>
                 <Toggle
@@ -43,14 +61,11 @@ const DrawerTemplate = props => {
                         <View style={styles.thumbButton}>
                             <Feather name="moon" size={20} color="black" />
                         </View>
-                        // <Icon name="sun" width="40" height="40" fill={'#3BD2B5'} />
                     }
                     thumbInActiveComponent={
                         <View style={styles.thumbButton}>
                             <Feather name="sun" size={20} color="black" />
                         </View>
-                        
-                        // <Icon name="night" width="40" height="40" fill={'#03452C'} />
                     }
                     trackBar={{
                         activeBackgroundColor: colors.primary,
@@ -80,7 +95,7 @@ const styles = StyleSheet.create({
         fontSize: 10,
     },
     logoView: {
-        flex: 4,
+        marginVertical: 20,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -104,7 +119,16 @@ const styles = StyleSheet.create({
         height: 32,
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    logoutItem: {
+        flexDirection: 'row',
+        height: 40,
+        alignItems: 'center',
+        marginLeft: 20,
+    },
+    logoutTextView: {
+        marginLeft: 35,
+    },
 })
 
 export default DrawerTemplate

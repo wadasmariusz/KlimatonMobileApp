@@ -26,24 +26,23 @@ export const saveLoginDataToStorage = (data) => {
 };
 
 export const logIn = (login, password) => {
-  console.log(getAPIAddress("auth/login"));
   return async (dispatch, getState) => {
     const response = await fetchFromAPI({
       method: "POST",
-      url: getAPIAddress("auth/login"),
+      url: getAPIAddress("account/sign-in"),
       data: {
         email: login,
         password: password,
+        rememberMe: true,
       },
     });
-    if (response && response?.token) {
+    if (response && response?.accessToken) {
       dispatch(
         authenticate({
           type: AUTHENTICATE,
-          token: response?.token,
+          token: response?.accessToken,
           refreshToken: response?.refreshToken,
           userId: response?.id,
-          // roles: response?.roles,
         })
       );
     } else {
@@ -62,16 +61,25 @@ export const logout = () => {
   };
 };
 
-export const register = (login, password, confirmPassword) => {
+export const register = (firstName, lastName, email, password, confirmPassword) => {
+  console.log({
+    email: email,
+    password: password,
+    confirmPassword: confirmPassword,
+    firstName: firstName,
+    lastName: lastName,
+  });
+  console.log(getAPIAddress('account/sign-up'));
   return async (dispatch, getState) => {
     const response = await fetchFromAPI({
       method: 'POST',
-      url: getAPIAdress('account/register'),
+      url: getAPIAddress('account/sign-up'),
       data: {
-        login: login,
+        email: email,
         password: password,
         confirmPassword: confirmPassword,
-        PNSToken: getState().auth.PNSToken,
+        firstName: firstName,
+        lastName: lastName,
       }
     })
     if (response != null && response.token != null) {
@@ -79,7 +87,6 @@ export const register = (login, password, confirmPassword) => {
         type: AUTHENTICATE,
         token: response?.token,
         userId: response?.userId,
-        roles: response?.roles,
       }))
     }
     else {

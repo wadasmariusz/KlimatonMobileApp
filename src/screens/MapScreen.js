@@ -16,6 +16,7 @@ import pinImage from '../../assets/pin.png'
 import { useWindowDimensions } from 'react-native';
 import colors from '../constants/colors'; 
 import { darkStyle } from '../data/mapStyles';
+import { useSelector } from 'react-redux';
 
 const MapScreen = props => {
   const mapRef = useRef(null)
@@ -23,11 +24,13 @@ const MapScreen = props => {
   const [markers, setMarkers] = useState([])
   const sheetRef = React.useRef(null);
   const { height, width } = useWindowDimensions();
+  const darkMode = useSelector(state => state.theme.theme);
 
   const renderContent = () => (
     <View
       style={[styles.bottomView, {
         height: height*0.75,
+        backgroundColor: darkMode ? colors.primary : colors.background
       }]}
     >
       <View style={styles.handle}></View>
@@ -47,7 +50,7 @@ const MapScreen = props => {
           longitudeDelta: 0.08,
         }}
         rotateEnabled={false}
-        customMapStyle={darkStyle}
+        customMapStyle={darkMode ? darkStyle : []}
     >
         {markers.map((marker, index) => (
           <Marker
@@ -66,7 +69,7 @@ const MapScreen = props => {
       </MapView>
       <View style={styles.header}>
         <SafeAreaView>
-          <Header buttonStyle={styles.menuBtn} light/>
+          <Header buttonStyle={[styles.menuBtn, {backgroundColor: darkMode ? colors.primary : colors.background}]}/>
         </SafeAreaView>
       </View>
       <BottomSheet
@@ -96,13 +99,29 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   menuBtn: {
-    backgroundColor: colors.primary,
     borderRadius: 10,
     padding: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.43,
+    shadowRadius: 9.51,
+
+    elevation: 15,
   },
   bottomView: {
-    backgroundColor: colors.primary,
     padding: 16,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.43,
+    shadowRadius: 9.51,
+
+    elevation: 15,
   },
   handle: {
     backgroundColor: colors.gray,
