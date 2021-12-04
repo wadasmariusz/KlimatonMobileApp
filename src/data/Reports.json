@@ -6,9 +6,10 @@
     "imageCount": 2,
     "type": 2,
     "likes": 13,
+    "comments": 2,
     "address": "Hetmańska 120",
-    "lon": 50.01717593739706,
-    "lat": 21.995222475060967
+    "lat": 50.01717593739706,
+    "lon": 21.995222475060967
   },
   {
     "id": 2,
@@ -17,9 +18,10 @@
     "imageCount": 0,
     "type": 6,
     "likes": 2,
+    "comments": 0,
     "address": "Księdza Józefa Jałowego 12",
-    "lon": 50.04010278881282,
-    "lat": 21.996378684657852
+    "lat": 50.04010278881282,
+    "lon": 21.996378684657852
   },
   {
     "id": 3,
@@ -28,8 +30,9 @@
     "imageCount": 3,
     "type": 10,
     "likes": 126,
+    "comments": 13,
     "address": "płk. Leopolda Lisa-Kuli 19",
-    "lon": 50.03533468812788,
-    "lat": 21.99685391349383
+    "lat": 50.03533468812788,
+    "lon": 21.99685391349383
   }
 ]

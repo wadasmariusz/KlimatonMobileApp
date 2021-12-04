@@ -15,6 +15,8 @@ import Header from '../../components/Header'
 import { useDispatch, useSelector } from 'react-redux'
 import * as authActions from '../../store/actions/auth';
 import ActivityIndicator from '../../components/general/ActivityIndicator.component'
+import logo from '../../../assets/logo.png';
+import logoLight from '../../../assets/logo-light.png';
 
 const RegisterScreen = props => {
   const [email, setEmail] = useState('');
@@ -53,7 +55,7 @@ const RegisterScreen = props => {
                 style={styles.iconView}>
                   <Image
                     style={styles.logo}
-                    source={require('../../../assets/logo.png')}
+                    source={darkMode ? logoLight : logo}
                   />
               </View>
               <View style={styles.inputsView}>

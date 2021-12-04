@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { Children } from 'react'
 import { Text, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useSelector } from 'react-redux';
 import colors from '../../constants/colors'
-import { Entypo } from '@expo/vector-icons';
 import myStyles from '../../constants/myStyles';
 
-export const AddReportButton = ({onPress}) => {
+export const MapButton = ({onPress, children}) => {
+  const darkMode = useSelector(state => state.theme.theme);
+
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Entypo name="plus" size={22} color={colors.textWhite} style={styles.icon} />
-      <Text style={styles.buttonText}>Dodaj zgłoszenie</Text>
+    <TouchableOpacity style={[styles.button, {backgroundColor: darkMode ? colors.primary : colors.background}]} onPress={onPress}>
+      {children}
     </TouchableOpacity>
   )
 }
@@ -21,8 +22,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     padding: 9,
-    marginTop: 10,
-    marginRight: myStyles.marginHorizontal,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -31,12 +30,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.43,
     shadowRadius: 9.51,
     elevation: 15,
+    width: 45,
+    height: 45,
+    marginTop: 10,
   },
-  buttonText: {
-    color: colors.textWhite,
-    fontWeight: 'bold',
-  },
-  icon: {
-    marginRight: 5,
-  }
 })

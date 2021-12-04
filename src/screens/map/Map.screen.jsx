@@ -1,27 +1,29 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import {
     View,
     StyleSheet,
     Text,
-    FlatList,
 } from 'react-native'
 import MapView, { Marker, Callout } from 'react-native-maps'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import BottomSheet from 'reanimated-bottom-sheet';
 import { useWindowDimensions } from 'react-native';
 import { useSelector } from 'react-redux';
+import { MaterialIcons, Octicons, Entypo } from '@expo/vector-icons';
 
 import Header from '../../components/Header'; 
 import MarkerCallout from '../../components/MarkerCallout';
 import myStyles from '../../constants/myStyles'; 
 import helpers from '../../helpers/helpers';
-import pinImage from '../../../assets/pin.png';
+import pinImage from '../../../assets/map/zespol.png';
 import colors from '../../constants/colors'; 
 import { darkStyle } from '../../data/mapStyles';
 import { AddReportButton } from '../../components/map/AddReportButton.component';
 import { useNavigation } from '@react-navigation/core';
 import reports from '../../data/Reports.json';
 import ReportListItem from './reports-list-item/ReportsListItem.component';
+import { FlatList } from 'react-native-gesture-handler';
+import { MapButton } from '../../components/map/MapButton.component';
 
 const MapScreen = props => {
   const mapRef = useRef(null)
@@ -33,7 +35,11 @@ const MapScreen = props => {
   const token = useSelector(state => state.auth.token);
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
-  console.log(reports);
+  const [layer, setLayer] = useState(0);
+
+  useEffect(() => {
+    console.log(layer);
+  }, [layer])
 
   const renderContent = () => (
     <View
@@ -44,15 +50,13 @@ const MapScreen = props => {
     >
       <View style={styles.handle}></View>
       <FlatList
+        nestedScrollEnabled
         data={reports}
         renderItem={({ item }) => <ReportListItem item={item} />}
-        // ItemSeparatorComponent={() => (
-        //   <View style={{ height: myStyles.listItemMargin }} />
-        // )}
         ListEmptyComponent={() =>
           !isLoading && <Text style={myStyles.emptyListMessage}>Brak zagrożeń</Text>
         }
-        contentContainerStyle={myStyles.listContent}
+        contentContainerStyle={[myStyles.listContent, {paddingTop: 0}]}
         keyExtractor={(i) => i?.id?.toString()}
         // refreshing={isLoading}
         // onRefresh={refetch}
@@ -74,20 +78,20 @@ const MapScreen = props => {
         rotateEnabled={false}
         customMapStyle={darkMode ? darkStyle : []}
     >
-        {markers.map((marker, index) => (
+        {layer === 0 && reports.map((marker, index) => { console.log(helpers.getCoordinates(marker)); return (
           <Marker
             ref={item => itemsRef.current[index] = item}
             key={index}
             coordinate={helpers.getCoordinates(marker)}
-            title={marker?.name}
-            description={marker?.address}
+            title={marker?.title}
+            description={marker?.description}
             image={pinImage}
           >
             <Callout>
               <MarkerCallout marker={marker} />
             </Callout>
           </Marker>
-        ))}
+        )})}
       </MapView>
       <View style={styles.header}>
         <SafeAreaView>
@@ -97,9 +101,24 @@ const MapScreen = props => {
           </View>
         </SafeAreaView>
       </View>
+      <View style={styles.mapButtons}>
+        <MapButton onPress={() => setLayer(1)}>
+          <Entypo name="air" size={24} color={colors.secondary} />
+        </MapButton>
+        <MapButton onPress={() => setLayer(2)}>
+          <Entypo name="water" size={24} color={colors.secondary} />
+        </MapButton>
+        <MapButton onPress={() => setLayer(0)}>
+          <Octicons name="report" size={24} color={colors.secondary} />
+        </MapButton>
+        <MapButton>
+          <MaterialIcons name="my-location" size={24} color='#0096FF' />
+        </MapButton>
+      </View>
       <BottomSheet
         ref={sheetRef}
-        snapPoints={[height*0.75, height*0.15]}
+        snapPoints={[height*0.75, 140]}
+        initialSnap={1}
         borderRadius={20}
         renderContent={renderContent}
       />
@@ -158,6 +177,13 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  mapButtons: {
+    alignItems: 'flex-end',
+    padding: myStyles.marginHorizontal,
+    position: 'absolute',
+    top: 100,
+    right: 0,
   }
 })
 

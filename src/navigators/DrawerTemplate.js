@@ -18,6 +18,8 @@ import * as themeActions from '../store/actions/theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMenuLabel } from '../helpers/menu/getMenuLabel';
 import * as authActions from '../store/actions/auth';
+import logo from '../../assets/logo.png';
+import logoLight from '../../assets/logo-light.png';
 
 const DrawerTemplate = props => {
     const darkMode = useSelector(state => state.theme.theme);
@@ -33,7 +35,7 @@ const DrawerTemplate = props => {
             <View style={styles.logoView}>
                 <Image
                     style={myStyles.logoIconText}
-                    source={require('../../assets/logo.png')}
+                    source={darkMode ? logoLight : logo}
                 />
             </View>
             <View style={styles.drawerList}>
@@ -71,7 +73,7 @@ const DrawerTemplate = props => {
                         activeBackgroundColor: colors.primary,
                         inActiveBackgroundColor: colors.background,
                         borderActiveColor: '#27292e',
-                        borderInActiveColor: colors.secondary,
+                        borderInActiveColor: '#fcc360',
                         borderWidth: 4,
                         width: 100,
                         height: 40,

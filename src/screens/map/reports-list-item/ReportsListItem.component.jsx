@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from '@expo/vector-icons';
-import { AntDesign, Entypo, SimpleLineIcons } from '@expo/vector-icons';
+import { AntDesign, Entypo, SimpleLineIcons, FontAwesome } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
 
 import myStyles from "../../../constants/myStyles"; 
 import colors, { ReportTypeColors } from "../../../constants/colors"; 
@@ -16,13 +16,14 @@ const reportTypes = {
   10: 'Inne',
 }
 
-const ReportListItem = ({ item }) => {
+const ReportListItem = ({ item, style }) => {
   const navigation = useNavigation();
+  const darkMode = useSelector(state => state.theme.theme);
 
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('Report', { report: item })}
-      style={styles.container}
+      style={[styles.container, style]}
     >
       {/* <Text>{JSON.stringify(item)}</Text> */}
       <Text style={[styles.type, {color: ReportTypeColors[item?.type]}]}>{reportTypes[item?.type]}</Text>
@@ -30,24 +31,28 @@ const ReportListItem = ({ item }) => {
         <View style={[styles.line, {backgroundColor: ReportTypeColors[item?.type]}]}></View>
         <View>
           <View style={styles.row}>
-            <Text style={styles.title}>{item?.title}</Text>
+            <Text style={[styles.title, {color: darkMode ? colors.textWhite : colors.textBlack}]}>{item?.title}</Text>
             <SimpleLineIcons name="options-vertical" style={[styles.icon, {marginLeft: 'auto'}]} />
             </View>
-          <Text style={styles.description}>{item?.description}</Text>
+          <Text style={[styles.description, {color: darkMode ? colors.lightGray : colors.gray}]}>{item?.description}</Text>
         </View>
       </View>
       <View style={[styles.row, styles.detailsBox]}>
         <View style={styles.detailWrapper}>
           <AntDesign name="like1" style={styles.icon}/>
-          <Text style={styles.details}>{item?.likes}</Text>
+          <Text style={[styles.details, {color: darkMode ? colors.textWhite : colors.textBlack}]}>{item?.likes}</Text>
+        </View>
+        <View style={styles.detailWrapper}>
+          <FontAwesome name="commenting" style={styles.icon}/>
+          <Text style={[styles.details, {color: darkMode ? colors.textWhite : colors.textBlack}]}>{item?.comments}</Text>
         </View>
         {!!item?.imageCount && <View style={styles.detailWrapper}>
           <Entypo name="images" style={styles.icon}/>
-          <Text style={styles.details}>{item?.imageCount}</Text>
+          <Text style={[styles.details, {color: darkMode ? colors.textWhite : colors.textBlack}]}>{item?.imageCount}</Text>
         </View>}
         <View style={styles.detailWrapper}>
           <Entypo name="address" style={styles.icon}/>
-          <Text style={styles.details}>{item?.address}</Text>
+          <Text style={[styles.details, {color: darkMode ? colors.textWhite : colors.textBlack}]}>{item?.address}</Text>
         </View>
       </View>
     </TouchableOpacity>

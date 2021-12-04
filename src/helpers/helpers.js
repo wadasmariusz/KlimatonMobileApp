@@ -9,8 +9,8 @@ export default {
     getCoordinates: point => {
         if (point) {
             return {
-                latitude: parseFloat(point?.position?.lat),
-                longitude: parseFloat(point?.position?.lng),
+                latitude: parseFloat(point?.lat),
+                longitude: parseFloat(point?.lon),
             }
         } else {
             return {

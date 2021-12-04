@@ -10,7 +10,7 @@ import myStyles from '@styles/myStyles'
 const MarkerCallout = ({ marker }) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.name}>{marker?.name}</Text>
+            <Text style={styles.name}>{marker?.title}</Text>
             <Text style={styles.address}>{marker?.address}</Text>
         </View>
         

@@ -1,14 +1,47 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
+import Header from '../../components/Header';
+import colors from '../../constants/colors';
+import myStyles from '../../constants/myStyles';
+import reports from '../../data/Reports.json';
+import ReportListItem from '../map/reports-list-item/ReportsListItem.component';
 
 export const ReportList = () => {
   const darkMode = useSelector(state => state.theme.theme)
 
   return (
-    <SafeAreaView>
-      <Text>Hello{darkMode?.toString()}</Text>
-    </SafeAreaView>
+    <View style={{backgroundColor: darkMode ? colors.primary : colors.background, flex: 1,}}>
+      <SafeAreaView>
+        <Header title="Zgłoszenia"/>
+        <FlatList
+          data={reports}
+          renderItem={({ item }) => <ReportListItem item={item} style={styles.listItem}/>}
+          ItemSeparatorComponent={() => (
+            <View style={{ height: myStyles.listItemMargin }} />
+          )}
+          ListEmptyComponent={() =>
+            !isLoading && <Text style={myStyles.emptyListMessage}>Brak zgłoszeń</Text>
+          }
+          contentContainerStyle={myStyles.listContent}
+          keyExtractor={(i) => i?.id?.toString()}
+          // refreshing={isLoading}
+          // onRefresh={refetch}
+        />
+      </SafeAreaView>
+    </View>
   )
 }
+
+const styles = StyleSheet.create({
+  flex: {
+    backgroundColor: 'red'
+  },
+  listItem: {
+    ...myStyles.section,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  }
+})

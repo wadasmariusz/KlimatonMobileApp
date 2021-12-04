@@ -19,7 +19,14 @@ export default {
     headerShown: false,
     drawerInactiveTintColor: colors.drawerTintColor,
     drawerActiveTintColor: colors.drawerTintColor,
-    drawerActiveBackgroundColor: 'rgba(67, 80, 107, 0.6)'
+    drawerActiveBackgroundColor: 'rgba(245, 158, 11, 0.2)'
+  },
+
+  defaultNavOptionsLightMode: {
+    headerShown: false,
+    drawerInactiveTintColor: colors.darkGray,
+    drawerActiveTintColor: colors.darkGray,
+    drawerActiveBackgroundColor: 'rgba(245, 158, 11, 0.2)'
   },
 
   shadow: {

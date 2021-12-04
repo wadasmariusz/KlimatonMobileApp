@@ -23,7 +23,7 @@ const DrawerNavigator = () => {
   return (
     <DrawerNavigatorTemplate.Navigator
       screenOptions={{
-        ...myStyles.defaultNavOptions,
+        ...(darkMode ? myStyles.defaultNavOptions : myStyles.defaultNavOptionsLightMode),
         drawerStyle: {
           backgroundColor: darkMode ? colors.primary : colors.background,
         },
