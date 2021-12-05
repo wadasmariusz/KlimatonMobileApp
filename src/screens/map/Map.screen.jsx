@@ -10,7 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import BottomSheet from 'reanimated-bottom-sheet';
 import { useWindowDimensions } from 'react-native';
 import { useSelector } from 'react-redux';
-import { MaterialIcons, Octicons, Entypo } from '@expo/vector-icons';
+import { MaterialIcons, Octicons, Entypo, FontAwesome } from '@expo/vector-icons';
 
 import Header from '../../components/Header'; 
 import MarkerCallout from '../../components/MarkerCallout';
@@ -25,10 +25,10 @@ import ReportListItem from './reports-list-item/ReportsListItem.component';
 import { FlatList } from 'react-native-gesture-handler';
 import { MapButton } from '../../components/map/MapButton.component';
 import { useGetInstitutions } from '../../crud/institutions/getInstitutions';
+import { useGetSensors } from '../../crud/sensors/getSensors';
 
-import pinLiceum from '../../../assets/map/liceum.png';
+import pinSensor from '../../../assets/map/sensor.png';
 import pinPrzedszkole from '../../../assets/map/przedszkole.png';
-import pinPodstawowka from '../../../assets/map/podstawowka.png';
 import pinZespol from '../../../assets/map/zespol.png';
 import pinZagrozenie from '../../../assets/map/zagrozenie.png';
 import pinBudynek from '../../../assets/map/budynek.png';
@@ -79,6 +79,7 @@ const MapScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [layer, setLayer] = useState(0);
   const {data: institutions} = useGetInstitutions();
+  const {data: sensors} = useGetSensors();
 
   const renderContent = () => (
     <View
@@ -134,14 +135,28 @@ const MapScreen = props => {
             </Callout>
           </Marker>
         ))}
-        {!!(layer === 1 && institutions?.items) && institutions?.items?.map((marker, index) => (
+        {!!(layer === 3 && institutions?.items) && institutions?.items?.map((marker, index) => (
           <Marker
             ref={item => itemsRef.current[index] = item}
             key={index}
-            coordinate={helpers.getInstitutionsCoordinates(marker)}
+            coordinate={helpers.getCoordinates(marker)}
             title={marker?.name}
             description={marker?.description}
             image={getInstitutionPin(marker?.type)}
+          >
+            {/* <Callout>
+              <MarkerCallout marker={marker} />
+            </Callout> */}
+          </Marker>
+        ))}
+        {!!(layer === 2 && sensors?.items) && sensors?.items?.map((marker, index) => (
+          <Marker
+            ref={item => itemsRef.current[index] = item}
+            key={index}
+            coordinate={helpers.getCoordinates(marker)}
+            title={marker?.externalId}
+            description={`${marker?.address?.street || ''} ${marker?.address?.number || ''}`}
+            image={pinSensor}
           >
             {/* <Callout>
               <MarkerCallout marker={marker} />
@@ -168,6 +183,9 @@ const MapScreen = props => {
         </MapButton>
         <MapButton onPress={() => setLayer(2)}>
           <Entypo name="water" size={24} color={colors.secondary} />
+        </MapButton>
+        <MapButton onPress={() => setLayer(3)}>
+          <FontAwesome name="institution" size={24} color={colors.secondary} />
         </MapButton>
         <MapButton onPress={() => setLayer(0)}>
           <Octicons name="report" size={24} color={colors.secondary} />

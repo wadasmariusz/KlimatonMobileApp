@@ -5,22 +5,8 @@ import * as Linking from 'expo-linking'
 import { format } from 'date-fns'
 import { pl } from 'date-fns/locale'
 
-export default {
+export default {    
     getCoordinates: point => {
-        if (point) {
-            return {
-                latitude: parseFloat(point?.lat),
-                longitude: parseFloat(point?.lon),
-            }
-        } else {
-            return {
-                latitude: 50,
-                longitude: 22,
-            }
-        } 
-    },
-    
-    getInstitutionsCoordinates: point => {
         if (point) {
             return {
                 latitude: parseFloat(point?.location?.lat),
