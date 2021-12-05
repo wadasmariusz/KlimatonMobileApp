@@ -170,7 +170,7 @@ const MapScreen = props => {
             <Header buttonStyle={[styles.menuBtn, {backgroundColor: darkMode ? colors.primary : colors.background}]}/>
             <AddReportButton onPress={() => {
               if(token) {
-                Alert.alert('Ta funkcja nie jest jeszcze obsługiwana');
+                navigation.navigate('Reports.category', {screen: 'AddReport'})
               } else {
                 navigation.navigate('Login')
               }}}/>

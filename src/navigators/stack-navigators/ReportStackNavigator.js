@@ -13,6 +13,7 @@ const ReportNavigator = () => {
     <ReportStackNavigator.Navigator screenOptions={myStyles.defaultNavOptions} initialRouteName='Reports'>
       <ReportStackNavigator.Screen name='Reports' component={ReportList} />
       <ReportStackNavigator.Screen name='Report' component={SingleReportScreen} />
+      <ReportStackNavigator.Screen name='AddReport' component={AddReportScreen} />
     </ReportStackNavigator.Navigator>
   )
 }
