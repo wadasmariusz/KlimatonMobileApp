@@ -14,6 +14,7 @@ import AuthNavigator from './stack-navigators/AuthStackNavigator'
 import { MyReports } from '../screens/reports/MyReports.screen'
 import { ReportList } from '../screens/reports/ReportList.screen'
 import { MyAccount } from '../screens/account/MyAccount.screen';
+import ReportNavigator from './stack-navigators/ReportStackNavigator';
 
 const DrawerNavigatorTemplate = createDrawerNavigator()
 const DrawerNavigator = () => {
@@ -39,8 +40,8 @@ const DrawerNavigator = () => {
         }}
       />
       <DrawerNavigatorTemplate.Screen
-        name='Reports'
-        component={ReportList}
+        name='Reports.category'
+        component={ReportNavigator}
         options={{
           drawerLabel: getMenuLabel('Zgłoszenia'),
           drawerIcon: getMenuIcon(MaterialIcons, "report-problem"),

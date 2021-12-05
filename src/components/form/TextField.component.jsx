@@ -20,7 +20,7 @@ const TextField = ({ title, value, setValue, style, inputProps, IconFamily, icon
             isFocused ? styles.inputFocus : '',
             containerStyles,
             {
-              borderColor: light ? colors.darkGray : colors.lightGray,
+              borderColor: isFocused ? colors.secondary : light ? colors.darkGray : colors.lightGray,
               backgroundColor: light ? colors.darkGray : colors.lightGray,
             }
           ]}>

@@ -52,7 +52,10 @@ const MapScreen = props => {
       <FlatList
         nestedScrollEnabled
         data={reports}
-        renderItem={({ item }) => <ReportListItem item={item} />}
+        renderItem={({ item }) => <ReportListItem
+          item={item}
+          onPress={() => navigation.navigate('Reports.category', { params: {report: item}, screen: 'Report' })}
+        />}
         ListEmptyComponent={() =>
           !isLoading && <Text style={myStyles.emptyListMessage}>Brak zagrożeń</Text>
         }

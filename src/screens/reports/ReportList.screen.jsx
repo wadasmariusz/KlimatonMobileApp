@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
@@ -10,7 +11,8 @@ import reports from '../../data/Reports.json';
 import ReportListItem from '../map/reports-list-item/ReportsListItem.component';
 
 export const ReportList = () => {
-  const darkMode = useSelector(state => state.theme.theme)
+  const darkMode = useSelector(state => state.theme.theme);
+  const navigation = useNavigation();
 
   return (
     <View style={{backgroundColor: darkMode ? colors.primary : colors.background, flex: 1,}}>
@@ -18,7 +20,11 @@ export const ReportList = () => {
         <Header title="Zgłoszenia"/>
         <FlatList
           data={reports}
-          renderItem={({ item }) => <ReportListItem item={item} style={styles.listItem}/>}
+          renderItem={({ item }) => <ReportListItem
+            item={item}
+            style={styles.listItem}
+            onPress={() => navigation.navigate('Report', {report: item})}
+          />}
           ItemSeparatorComponent={() => (
             <View style={{ height: myStyles.listItemMargin }} />
           )}

@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Entypo, SimpleLineIcons, FontAwesome } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 
 import myStyles from "../../../constants/myStyles"; 
 import colors, { ReportTypeColors } from "../../../constants/colors"; 
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const reportTypes = {
   0: 'Brak danych',
@@ -16,13 +17,13 @@ const reportTypes = {
   10: 'Inne',
 }
 
-const ReportListItem = ({ item, style }) => {
+const ReportListItem = ({ item, style, onPress }) => {
   const navigation = useNavigation();
   const darkMode = useSelector(state => state.theme.theme);
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('Report', { report: item })}
+      onPress={onPress}
       style={[styles.container, style]}
     >
       {/* <Text>{JSON.stringify(item)}</Text> */}
@@ -44,7 +45,7 @@ const ReportListItem = ({ item, style }) => {
         </View>
         <View style={styles.detailWrapper}>
           <FontAwesome name="commenting" style={styles.icon}/>
-          <Text style={[styles.details, {color: darkMode ? colors.textWhite : colors.textBlack}]}>{item?.comments}</Text>
+          <Text style={[styles.details, {color: darkMode ? colors.textWhite : colors.textBlack}]}>{item?.commentCount}</Text>
         </View>
         {!!item?.imageCount && <View style={styles.detailWrapper}>
           <Entypo name="images" style={styles.icon}/>
