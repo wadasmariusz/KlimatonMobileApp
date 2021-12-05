@@ -23,7 +23,7 @@ export const ReportList = () => {
           data={reports}
           renderItem={({ item }) => <ReportListItem
             item={item}
-            style={styles.listItem}
+            style={[styles.listItem, {backgroundColor: darkMode ? colors.gray : colors.white}]}
             onPress={() => navigation.navigate('Report', {report: item})}
           />}
           ItemSeparatorComponent={() => (

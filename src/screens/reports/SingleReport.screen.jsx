@@ -27,20 +27,20 @@ const SingleReportScreen = (props) => {
       <SafeAreaView style={styles.flex}>
         <Header back/>
         <View style={styles.reportInfo}>
-          <Text style={styles.title}>{report?.title}</Text>
-          <Text style={styles.description}>{report?.description}</Text>
+          <Text style={[styles.title, {color: darkMode ? colors.textWhite : colors.textBlack}]}>{report?.title}</Text>
+          <Text style={[styles.description, {color: darkMode ? colors.lightGray : colors.gray}]}>{report?.description}</Text>
           <View style={styles.reportDetails}>
             <View style={[styles.address, styles.detail]}>
-              <MaterialCommunityIcons name="account" style={styles.icon} />
-              <Text style={styles.reportDetailText}>Anonim</Text>
+              <MaterialCommunityIcons name="account" style={[styles.icon, {color: darkMode ? colors.lightGray : colors.gray}]} />
+              <Text style={[styles.reportDetailText, {color: darkMode ? colors.textWhite : colors.textBlack}]}>Anonim</Text>
             </View>
             <View style={[styles.date, styles.detail]}>
-              <AntDesign name="clockcircleo" style={styles.icon}/>
-              <Text style={styles.reportDetailText}>{helpers.formatDate(report?.reportDate, 'dd.MM.yyyy HH:mm')}</Text>
+              <AntDesign name="clockcircleo" style={[styles.icon, {color: darkMode ? colors.lightGray : colors.gray}]}/>
+              <Text style={[styles.reportDetailText, {color: darkMode ? colors.lightGray : colors.gray}]}>{helpers.formatDate(report?.reportDate, 'dd.MM.yyyy HH:mm')}</Text>
             </View>
             <View style={[styles.address, styles.detail]}>
-              <Entypo name="address" style={styles.icon} />
-              <Text style={styles.reportDetailText}>{report?.address}</Text>
+              <Entypo name="address" style={[styles.icon, {color: darkMode ? colors.lightGray : colors.gray}]} />
+              <Text style={[styles.reportDetailText, {color: darkMode ? colors.lightGray : colors.gray}]}>{report?.address}</Text>
             </View>
           </View>
           <View style={styles.reportImages}>
@@ -56,17 +56,17 @@ const SingleReportScreen = (props) => {
             <TouchableOpacity style={styles.commentSectionButton}>
               <AntDesign name="like1" style={styles.commentSectionButtonIcon}/>
             </TouchableOpacity>
-            <View style={styles.commentButtonBox}>
-              <FontAwesome name="commenting" style={styles.icon}/>
-              <Text>{report?.commentCount}</Text>
+            <View style={[styles.commentButtonBox, {backgroundColor: darkMode ? colors.gray : colors.lightGray}]}>
+              <FontAwesome name="commenting" style={[styles.icon, {color: darkMode ? colors.textWhite : colors.textBlack}]}/>
+              <Text style={{color: darkMode ? colors.textWhite : colors.textBlack}}>{report?.commentCount}</Text>
             </View>
-            <View style={styles.commentButtonBox}>
-              <AntDesign name="like1" style={styles.icon}/>
-              <Text>{report?.likes}</Text>
+            <View style={[styles.commentButtonBox, {backgroundColor: darkMode ? colors.gray : colors.lightGray}]}>
+              <AntDesign name="like1" style={[styles.icon, {color: darkMode ? colors.textWhite : colors.textBlack}]}/>
+              <Text style={{color: darkMode ? colors.textWhite : colors.textBlack}}>{report?.likes}</Text>
             </View>
-            <View style={[styles.commentButtonBox, styles.commentSorting]}>
-              <Text>Sortowanie</Text>
-              <MaterialIcons name="keyboard-arrow-down" size={24} color="black" />
+            <View style={[styles.commentButtonBox, styles.commentSorting, {backgroundColor: darkMode ? colors.gray : colors.lightGray}]}>
+              <Text style={{color: darkMode ? colors.textWhite : colors.textBlack}}>Sortowanie</Text>
+              <MaterialIcons name="keyboard-arrow-down" size={24} style={{color: darkMode ? colors.textWhite : colors.textBlack}} />
             </View>
           </View>
           <View style={styles.comments}>
@@ -75,9 +75,9 @@ const SingleReportScreen = (props) => {
                 <View style={styles.avatar}>
                   <Image source={{uri: comment?.avatar}} style={styles.avatar}/>
                 </View>
-                <View style={styles.commentContent}>
-                  <Text style={[styles.commentUser, {color: comment?.admin ? '#BD1616' : colors.textBlack}]}>{comment?.name}</Text>
-                  <Text style={styles.commentText}>{comment?.content}</Text>
+                <View style={[styles.commentContent, {backgroundColor: darkMode ? colors.gray : colors.lightGray}]}>
+                  <Text style={[styles.commentUser, {color: comment?.admin ? '#BD1616' : darkMode ? colors.textWhite : colors.textBlack}]}>{comment?.name}</Text>
+                  <Text style={[styles.commentText, {color: darkMode ? colors.textWhite : colors.textBlack}]}>{comment?.content}</Text>
                 </View>
               </View>
             ))}

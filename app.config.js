@@ -1,8 +1,8 @@
-const appName = 'Klimaton'
+const appName = 'ConnectedCity'
 export const configuration = {
   APP_VERSION: '0.0.1',
   VERSION_CODE: 1,
-  bundleName: 'com.klimaton.klimaton',
+  bundleName: 'com.connectedcity.connectedcity',
 }
 
 export default {
