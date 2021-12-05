@@ -15,6 +15,7 @@ import { MyReports } from '../screens/reports/MyReports.screen'
 import { ReportList } from '../screens/reports/ReportList.screen'
 import { MyAccount } from '../screens/account/MyAccount.screen';
 import ReportNavigator from './stack-navigators/ReportStackNavigator';
+import { RankingScreen } from '../screens/ranking/Ranking.screen';
 
 const DrawerNavigatorTemplate = createDrawerNavigator()
 const DrawerNavigator = () => {
@@ -45,6 +46,14 @@ const DrawerNavigator = () => {
         options={{
           drawerLabel: getMenuLabel('Zgłoszenia'),
           drawerIcon: getMenuIcon(MaterialIcons, "report-problem"),
+        }}
+      />
+      <DrawerNavigatorTemplate.Screen
+        name='Ranking'
+        component={RankingScreen}
+        options={{
+          drawerLabel: getMenuLabel('Ranking'),
+          drawerIcon: getMenuIcon(Entypo, "price-ribbon"),
         }}
       />
       {!!token ? <>

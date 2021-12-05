@@ -13,7 +13,7 @@ import myStyles from '../constants/myStyles'
 import colors from '../constants/colors'
 import { useSelector } from 'react-redux';
 
-const Header = ({ title, isLoading, back, style, buttonStyle }) => {
+const Header = ({ title, isLoading, back, style, buttonStyle, customRedirect }) => {
   const navigation = useNavigation()
   const light = useSelector(state => state.theme.theme);
 
@@ -25,7 +25,7 @@ const Header = ({ title, isLoading, back, style, buttonStyle }) => {
         <TouchableOpacity
           style={[styles.touchableMenu, buttonStyle]}
           onPress={() => {
-            back ? navigation.goBack() : navigation.toggleDrawer()
+            customRedirect ? navigation.navigate(...customRedirect) : back ? navigation.goBack() : navigation.toggleDrawer()
           }}
         >
           <Entypo name={back ? 'chevron-left' : 'menu'} size={26} color={light ? colors.lightGray : colors.textBlack} />

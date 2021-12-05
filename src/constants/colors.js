@@ -22,7 +22,8 @@ export const ReportTypeColors = {
   0: '#AE431E',
   2: '#396EB0',
   4: '#77E4D4',
-  6: '#A2D2FF',
+  6: '#9D5C0D',
   8: '#AAA492',
   10: '#FFCA03',
+  12: '#D47AE8'
 }

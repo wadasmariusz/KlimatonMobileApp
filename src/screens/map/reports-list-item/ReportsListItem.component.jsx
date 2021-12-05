@@ -13,8 +13,10 @@ const reportTypes = {
   2: 'Powódź',
   4: 'Zalanie',
   6: 'Smog',
-  8: 'Nieodpowiedni',
-  10: 'Inne',
+  8: 'Nieodpowiedni piec',
+  10: 'Śmieci',
+  12: 'Brzydki zapach',
+  14: 'Inne'
 }
 
 const ReportListItem = ({ item, style, onPress }) => {
@@ -30,7 +32,7 @@ const ReportListItem = ({ item, style, onPress }) => {
       <Text style={[styles.type, {color: ReportTypeColors[item?.type]}]}>{reportTypes[item?.type]}</Text>
       <View style={styles.row}>
         <View style={[styles.line, {backgroundColor: ReportTypeColors[item?.type]}]}></View>
-        <View>
+        <View style={{flexShrink: 1}}>
           <View style={styles.row}>
             <Text style={[styles.title, {color: darkMode ? colors.textWhite : colors.textBlack}]}>{item?.title}</Text>
             <SimpleLineIcons name="options-vertical" style={[styles.icon, {marginLeft: 'auto'}]} />
@@ -89,14 +91,17 @@ const styles = StyleSheet.create({
   },
   description: {
     color: colors.gray,
+    flexShrink: 1,
   },
   detailsBox: {
     marginTop: 15,
+    flexWrap: 'wrap',
   },
   detailWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     marginRight: 15,
+    flexShrink: 1,
   },
   icon: {
     fontSize: 18,

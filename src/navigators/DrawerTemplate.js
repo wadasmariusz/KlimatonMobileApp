@@ -45,10 +45,10 @@ const DrawerTemplate = props => {
                         onPress={logout}
                         style={styles.logoutItem}
                         >
-                        <Ionicons name='md-power' size={18} color={colors.drawerTintColor} />
+                        <Ionicons name='md-power' size={18} color={darkMode ? colors.drawerTintColor : colors.darkGray} />
                         <View style={styles.logoutTextView}>
                             {getMenuLabel('Wyloguj')({
-                            color: colors.drawerTintColor
+                            color: darkMode ? colors.drawerTintColor : colors.darkGray
                             })}
                         </View>
                     </TouchableOpacity>

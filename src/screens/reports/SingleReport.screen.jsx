@@ -15,15 +15,17 @@ import { AntDesign, FontAwesome, MaterialIcons, Entypo, MaterialCommunityIcons }
 import TextField from "../../components/form/TextField.component";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import helpers from "../../helpers/helpers";
+import { useNavigation } from "@react-navigation/core";
 
 const SingleReportScreen = (props) => {
   const report = props.route?.params?.report;
   const darkMode = useSelector(state => state.theme.theme);
+  const navigation = useNavigation();
 
   return (
     <View style={{backgroundColor: darkMode ? colors.primary : colors.background, flex: 1}}>
       <SafeAreaView style={styles.flex}>
-        <Header back />
+        <Header back/>
         <View style={styles.reportInfo}>
           <Text style={styles.title}>{report?.title}</Text>
           <Text style={styles.description}>{report?.description}</Text>

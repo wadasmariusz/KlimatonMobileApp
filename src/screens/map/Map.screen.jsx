@@ -3,6 +3,7 @@ import {
     View,
     StyleSheet,
     Text,
+    Alert,
 } from 'react-native'
 import MapView, { Marker, Callout } from 'react-native-maps'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -15,7 +16,6 @@ import Header from '../../components/Header';
 import MarkerCallout from '../../components/MarkerCallout';
 import myStyles from '../../constants/myStyles'; 
 import helpers from '../../helpers/helpers';
-import pinImage from '../../../assets/map/zespol.png';
 import colors from '../../constants/colors'; 
 import { darkStyle } from '../../data/mapStyles';
 import { AddReportButton } from '../../components/map/AddReportButton.component';
@@ -24,6 +24,48 @@ import reports from '../../data/Reports.json';
 import ReportListItem from './reports-list-item/ReportsListItem.component';
 import { FlatList } from 'react-native-gesture-handler';
 import { MapButton } from '../../components/map/MapButton.component';
+import { useGetInstitutions } from '../../crud/institutions/getInstitutions';
+
+import pinLiceum from '../../../assets/map/liceum.png';
+import pinPrzedszkole from '../../../assets/map/przedszkole.png';
+import pinPodstawowka from '../../../assets/map/podstawowka.png';
+import pinZespol from '../../../assets/map/zespol.png';
+import pinZagrozenie from '../../../assets/map/zagrozenie.png';
+import pinBudynek from '../../../assets/map/budynek.png';
+import pinPowietrze from '../../../assets/map/powietrze.png';
+import pinWoda from '../../../assets/map/woda.png';
+import pinPiece from '../../../assets/map/piece.png';
+import pinSmieci from '../../../assets/map/smieci.png';
+
+const getInstitutionPin = type => {
+  switch(type) {
+    case 1:
+      return pinPrzedszkole;
+    case 2:
+      return pinZespol;
+    case 3:
+      return pinZagrozenie;
+    case 4:
+      return pinBudynek;
+    default:
+      return pinZagrozenie;
+  }
+}
+const getReportPin = type => {
+  switch(type) {
+    case 2:
+    case 4:
+      return pinWoda;
+    case 6:
+      return pinPowietrze;
+    case 8:
+      return pinPiece;
+    case 10:
+      return pinSmieci;
+    default:
+      return pinZagrozenie;
+  }
+}
 
 const MapScreen = props => {
   const mapRef = useRef(null)
@@ -36,10 +78,7 @@ const MapScreen = props => {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const [layer, setLayer] = useState(0);
-
-  useEffect(() => {
-    console.log(layer);
-  }, [layer])
+  const {data: institutions} = useGetInstitutions();
 
   const renderContent = () => (
     <View
@@ -81,26 +120,45 @@ const MapScreen = props => {
         rotateEnabled={false}
         customMapStyle={darkMode ? darkStyle : []}
     >
-        {layer === 0 && reports.map((marker, index) => { console.log(helpers.getCoordinates(marker)); return (
+        {layer === 0 && reports.map((marker, index) => (
           <Marker
             ref={item => itemsRef.current[index] = item}
             key={index}
             coordinate={helpers.getCoordinates(marker)}
             title={marker?.title}
             description={marker?.description}
-            image={pinImage}
+            image={getReportPin(marker?.type)}
           >
             <Callout>
               <MarkerCallout marker={marker} />
             </Callout>
           </Marker>
-        )})}
+        ))}
+        {!!(layer === 1 && institutions?.items) && institutions?.items?.map((marker, index) => (
+          <Marker
+            ref={item => itemsRef.current[index] = item}
+            key={index}
+            coordinate={helpers.getInstitutionsCoordinates(marker)}
+            title={marker?.name}
+            description={marker?.description}
+            image={getInstitutionPin(marker?.type)}
+          >
+            {/* <Callout>
+              <MarkerCallout marker={marker} />
+            </Callout> */}
+          </Marker>
+        ))}
       </MapView>
       <View style={styles.header}>
         <SafeAreaView>
           <View style={styles.row}>
             <Header buttonStyle={[styles.menuBtn, {backgroundColor: darkMode ? colors.primary : colors.background}]}/>
-            <AddReportButton onPress={() => navigation.navigate(token ? 'AddReport' : 'Login')}/>
+            <AddReportButton onPress={() => {
+              if(token) {
+                Alert.alert('Ta funkcja nie jest jeszcze obsługiwana');
+              } else {
+                navigation.navigate('Login')
+              }}}/>
           </View>
         </SafeAreaView>
       </View>

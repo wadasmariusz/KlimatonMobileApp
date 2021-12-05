@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -12,6 +12,7 @@ import ReportListItem from '../map/reports-list-item/ReportsListItem.component';
 
 export const ReportList = () => {
   const darkMode = useSelector(state => state.theme.theme);
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
 
   return (

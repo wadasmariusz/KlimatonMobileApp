@@ -19,6 +19,20 @@ export default {
             }
         } 
     },
+    
+    getInstitutionsCoordinates: point => {
+        if (point) {
+            return {
+                latitude: parseFloat(point?.location?.lat),
+                longitude: parseFloat(point?.location?.lng),
+            }
+        } else {
+            return {
+                latitude: 50,
+                longitude: 22,
+            }
+        } 
+    },
 
     formatDistance: distanceMeters => {
         if(!distanceMeters || typeof distanceMeters !== 'number') return ''
